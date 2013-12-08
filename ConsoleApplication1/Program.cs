@@ -5,37 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using GestureLib;
 using Leap;
+using System.Windows.Forms;
+using System.Runtime.InteropServices;
 namespace ConsoleApplication1
 {
     class Program
     {
+        // Get a handle to an application window.
+        [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
+        public static extern IntPtr FindWindow(string lpClassName,
+            string lpWindowName);
 
-        public void listener_onGesture(GestureLib.Gesture gesture)
-        {
-            foreach (GestureLib.Gesture.Direction direction in gesture.directions)
-            {
-                if (direction.ToString() == "Right")
-                {
-                    Console.Clear();
-                    Console.Write("Right");
-                }
-                if (direction.ToString() == "Left")
-                {
-                    Console.Clear();
-                    Console.Write("Left");
-                }
-                if (direction.ToString() == "Up")
-                {
-                    Console.Clear();
-                    Console.Write("Up");
-                }
-                if (direction.ToString() == "Down")
-                {
-                    Console.Clear();
-                    Console.Write("Down");
-                }
-            }
-        }
+        // Activate an application window.
+        [DllImport("USER32.DLL")]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
+        
             
 
         static void Main(string[] args)
@@ -82,12 +66,38 @@ namespace ConsoleApplication1
                         Console.Clear();
                         Console.Write("Right");
                         last_direction = "Right";
+                        IntPtr calculatorHandle = FindWindow("WindowsForms10.Window.8.app.0.bf7d44_r9_ad1", "PHENIX - Vafk,T,6 [ClearCanvas DICOM Viewer (Source) - Not for Diagnostic Use | Modified Installation]");
+
+                        // Verify that Calculator is a running process.
+                        if (calculatorHandle == IntPtr.Zero)
+                        {
+                            MessageBox.Show("Calculator is not running.");
+                            return;
+                        }
+
+                        // Make Calculator the foreground application and send it 
+                        // a set of calculations.
+                        SetForegroundWindow(calculatorHandle);
+                        SendKeys.SendWait("a");
                     }
                     else if (avgVelocity.x < -sensitivity && last_direction != "Left")
                     {
                         Console.Clear();
                         Console.Write("Left");
                         last_direction = "Left";
+                        IntPtr calculatorHandle = FindWindow("WindowsForms10.Window.8.app.0.bf7d44_r9_ad1", "PHENIX - Vafk,T,6 [ClearCanvas DICOM Viewer (Source) - Not for Diagnostic Use | Modified Installation]");
+
+                        // Verify that Calculator is a running process.
+                        if (calculatorHandle == IntPtr.Zero)
+                        {
+                            MessageBox.Show("Calculator is not running.");
+                            return;
+                        }
+
+                        // Make Calculator the foreground application and send it 
+                        // a set of calculations.
+                        SetForegroundWindow(calculatorHandle);
+                        SendKeys.SendWait(",");
                     }
 
                     if (avgVelocity.z < -sensitivity && last_direction != "Forward")
