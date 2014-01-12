@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "Cons
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestureLib.NET4.0", "GestureLib\GestureLib.NET4.0.csproj", "{41C809F9-6788-4ED4-B072-E70E971229D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servicio", "Servicio\Servicio.csproj", "{6DA8C030-B734-4144-A282-299C297E32C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib", "Lib\Lib.csproj", "{7C3FC517-4537-4E77-B437-85CA5AFD68D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +23,14 @@ Global
 		{41C809F9-6788-4ED4-B072-E70E971229D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41C809F9-6788-4ED4-B072-E70E971229D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41C809F9-6788-4ED4-B072-E70E971229D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DA8C030-B734-4144-A282-299C297E32C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DA8C030-B734-4144-A282-299C297E32C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DA8C030-B734-4144-A282-299C297E32C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DA8C030-B734-4144-A282-299C297E32C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C3FC517-4537-4E77-B437-85CA5AFD68D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C3FC517-4537-4E77-B437-85CA5AFD68D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C3FC517-4537-4E77-B437-85CA5AFD68D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C3FC517-4537-4E77-B437-85CA5AFD68D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,6 +7,7 @@ using Leap;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Threading;
+using Lib;
 namespace ConsoleApplication1
 {
     class Program
@@ -15,7 +16,11 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             GestureApp gestureApp = new GestureApp();
-            gestureApp.start();
+            Controller controller = new Controller();
+            controller.SetPolicyFlags(Controller.PolicyFlag.POLICYBACKGROUNDFRAMES);
+            controller.AddListener(gestureApp);
+            Console.WriteLine("Press Enter to quit...");
+            Console.ReadLine();
         }
     }
 }
