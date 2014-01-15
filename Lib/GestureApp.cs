@@ -18,11 +18,13 @@ namespace Lib
         int option = 0;
         Options options;
         bool rightClickDown = false;
+        bool fist = false;
         public override void OnInit(Controller controller)
         {
             options = new Options();
             controller.EnableGesture(Gesture.GestureType.TYPECIRCLE);
             controller.EnableGesture(Gesture.GestureType.TYPEKEYTAP);
+            controller.EnableGesture(Gesture.GestureType.TYPESWIPE);
             wantToChangeOptions = true;
             sensitivity = 600;
         }
@@ -34,9 +36,14 @@ namespace Lib
             //process(gestures,frame);
             if (isClick(gestures) )
             {
+                if (fist)
+                {
+                    fist = false;
+                    window.leftClickUp();
+                }
                 wantToChangeOptions = false;
                
-                if (hasTwoFingers(frame))
+                if (hasTwoFingers(frame) )
                 {
 
                     if (option == 1 && rightClickDown)
@@ -51,104 +58,65 @@ namespace Lib
                         window.zoom();
                         window.rightClickDown();
                     }
-                    if (option == 2 && rightClickDown)
-                    {
-                        rightClickDown = false;
-
-                        window.leftClickUp();
-                    }
-                    else if (option == 2 && !rightClickDown)
-                    {
-                        rightClickDown = true;
-                        window.pan();
-                        window.leftClickDown();
-                    }
                 }
+                
                 else window.click();
                 
+            }
+            if (hasFist(frame) && !fist)
+            {
+                fist = true;
+                window.pan();
+                window.leftClickDown();
+            }
+            else if (!hasFist(frame) && fist)
+            {
+                fist = false;
+                window.leftClickUp();
             }
             
             drawCursor(frame);
             changeFocus(gestures);
-            selectOptions(frame);
+            selectOptions(gestures);
             
+        }
+
+        private bool hasFist(Frame frame)
+        {
+            Hand hand = frame.Hands.Rightmost;
+            return hand.Fingers.Count == 0;
         }
         private bool hasTwoFingers(Frame frame)
         {
             Hand hand = frame.Hands[0];
             return (hand.Fingers.Count == 2);
         }
-        private void selectOptions(Frame frame)
+        private void selectOptions(GestureList gestures)
         {
             if (wantToChangeOptions)
             {
-                // Get the first hand
-                Hand hand = frame.Hands[0];
-
-                // Check if the hand has any fingers
-                PointableList pointables=frame.Pointables;
-                if(!pointables.IsEmpty)
+                
+                foreach (Gesture gesture in gestures)
                 {
-                    Vector avgPos = Vector.Zero;
-                    Vector avgVelocity = Vector.Zero;
-                    float avgDistance = 0;
-                    foreach (Pointable pointable in pointables)
+                    if(gesture.Type == Gesture.GestureType.TYPESWIPE && gesture.State == Gesture.GestureState.STATESTART)
                     {
-                        avgDistance +=pointable.TouchDistance;
-                        avgPos += pointable.TipPosition;
-                        avgVelocity += pointable.TipVelocity;
-                    }
-                    avgPos /= pointables.Count;
-                    avgVelocity /= pointables.Count;
-                    avgDistance /= pointables.Count;
-               
-                    //Up
-                    if (avgVelocity.y > sensitivity )
-                    {
-                        
-                    }
-                    //Down
-                    else if (avgVelocity.y < -sensitivity)
-                    {
-                        
-                    }
-                    //Right
-                    if (avgVelocity.x > sensitivity && avgPos.z < 0)
-                    {
-                        if (option < options.size()-1)
+                        SwipeGesture swipe = new SwipeGesture(gesture);
+                        if (Math.Abs(swipe.Direction.x) > 0.2)
                         {
-                            option++;
-                            Console.WriteLine(options.names[option]);
+                            if (swipe.Direction.x > 0 && option < (options.size() - 1))
+                            {
+                                option++;
+                                Console.WriteLine(options.names[option]);
+                            }
+                            else if (swipe.Direction.x < 0 && option > 0)
+                            {
+                                option--;
+                                Console.WriteLine(options.names[option]);
+                            }
                         }
-                    }
-                    //left
-                    else if (avgVelocity.x < -sensitivity && avgPos.z<0)
-                    {
-                        if (option > 0)
-                        {
-                            option--;
-                            Console.WriteLine(options.names[option]);
-                        }
-                    }
 
-                    /*
-                    if (avgVelocity.z > sensitivity)
-                    {
-                        directions.Add(Gesture.Direction.Backward);
                     }
-                    else if (avgVelocity.z < -sensitivity)
-                    {
-                        directions.Add(Gesture.Direction.Forward);
-                    }
-
-                    if (directions.Count > 0)
-                    {
-                        Gesture gesture = new Gesture(directions.ToArray(), fingers.Count);
-                        onGesture(gesture);
-                    }*/
-
-                    //Console.WriteLine("Hand has " + fingers.Count
-                    //            + " fingers, average finger tip Velocity: " + avgVelocity);
+                    
                 }
             }
         }
@@ -180,8 +148,10 @@ namespace Lib
         private void drawCursor(Frame frame)
         {
             InteractionBox interactionBox = frame.InteractionBox;
-            Pointable pointable = frame.Pointables[0];
-                Vector normalizedPosition = interactionBox.NormalizePoint(pointable.StabilizedTipPosition);
+            Hand hand = frame.Hands.Rightmost;
+            
+            Pointable pointable = hand.Pointables[0];
+            Vector normalizedPosition = interactionBox.NormalizePoint(hand.StabilizedPalmPosition);
                 float tx = normalizedPosition.x * windowWidth;
                 float ty = windowHeight - normalizedPosition.y * windowHeight;
             window.setCursorPositionXY((int)tx, (int)ty);

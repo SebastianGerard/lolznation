@@ -12,8 +12,7 @@ namespace Lib
         {
             names = new List<string>();
             names.Add("NONE");
-            names.Add("ZOOM");
-            names.Add("PAN");
+            names.Add("ZOOM/PANE");
         }
         public int size()
         {
