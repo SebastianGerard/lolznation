@@ -13,11 +13,30 @@ namespace Lib
 
         [DllImport("user32.dll")]
         private static extern void mouse_event(UInt32 dwFlags, UInt32 dx, UInt32 dy, UInt32 dwData, IntPtr dwExtraInfo);
-
+        public float windowWidth = 1366;
+        public float windowHeight = 768;
         private const UInt32 MouseEventRightDown = 0x0008;
         private const UInt32 MouseEventRightUp = 0x0010;
         private const int MOUSEEVENTF_LEFTDOWN = 0x0002;
         private const int MOUSEEVENTF_LEFTUP = 0x0004;
+        private bool rightClickDownPressed;
+        private bool leftClickDownPressed;
+
+        [DllImport("user32.dll")]
+        static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
+
+        private string GetActiveWindowTitle()
+        {
+            const int nChars = 256;
+            StringBuilder Buff = new StringBuilder(nChars);
+            IntPtr handle = GetForegroundWindow();
+
+            if (GetWindowText(handle, Buff, nChars) > 0)
+            {
+                return Buff.ToString();
+            }
+            return null;
+        }
 
         public static void SendRightClickDown(UInt32 posX, UInt32 posY)
         {
@@ -84,16 +103,23 @@ namespace Lib
             return true;
         }
 
-        public bool myWindowIsFocused()
+        public Window()
         {
-            return myWindowFocused;
+            rightClickDownPressed = false;
+            leftClickDownPressed = false;
         }
 
-        public void changeFocusClearCanvas()
+        public bool myWindowIsFocused()
+        {
+            string title = GetActiveWindowTitle();
+            return title == myWindowsName;
+        }
+
+        /*public void changeFocusClearCanvas()
         {
             myWindowFocused = false;
             changeFocus(clearCanvasClass,clearCanvasName);
-        }
+        }*/
 
         public void changeFocusMyWindow()
         {
@@ -105,9 +131,21 @@ namespace Lib
         {
             SetCursorPos(X, Y);
         }
-
+        public void setCursorPositionXYDefaultX(int Y)
+        {
+            SetCursorPos(Cursor.Position.X, Y);
+        }
+        public int cursorX()
+        {
+            return Cursor.Position.X;
+        }
+        public int cursorY()
+        {
+            return Cursor.Position.Y;
+        }
         public void click()
         {
+            upAllClicks();
             int X = Cursor.Position.X;
             int Y = Cursor.Position.Y;
             SendLeftClickDown((UInt32)X, (UInt32)Y);
@@ -115,56 +153,20 @@ namespace Lib
         }
         public void rightClickDown()
         {
+            
+            rightClickDownPressed = true;
             int X = Cursor.Position.X;
             int Y = Cursor.Position.Y;
             SendRightClickDown((UInt32)X, (UInt32)Y);
         }
         public void rightClickUp()
         {
+            rightClickDownPressed = false;
             int X = Cursor.Position.X;
             int Y = Cursor.Position.Y;
             SendRightClickUp((UInt32)X, (UInt32)Y);
         }
-        public void zoomStart()
-        {
-            changeFocusClearCanvas();
-            int X = Cursor.Position.X;
-            int Y = Cursor.Position.Y;
-            SendRightClickDown((UInt32)X, (UInt32)Y);
-            changeFocusMyWindow();
-        }
-        public void zoomStop()
-        {
-            changeFocusClearCanvas();
-            int X = Cursor.Position.X;
-            int Y = Cursor.Position.Y;
-            SendRightClickUp((UInt32)X, (UInt32)Y);
-            changeFocusMyWindow();
-        }
-        public void zoomin()
-        {
-            changeFocusClearCanvas();
-            int X = Cursor.Position.X;
-            int Y = Cursor.Position.Y;
-            SendRightClickDown((UInt32)X, (UInt32)Y);
-            SetCursorPos(Cursor.Position.X, Cursor.Position.Y + 3);
-            SendRightClickUp((UInt32)X, (UInt32)Y);
-             //SendKeys.SendWait("a");
-            changeFocusMyWindow();
-        }
-        public void zoomout()
-        {
-            changeFocusClearCanvas();
-            //SendKeys.SendWait(",");
-            int X = Cursor.Position.X;
-            int Y = Cursor.Position.Y;
-            SendRightClickDown((UInt32)X, (UInt32)Y);
-            SetCursorPos(Cursor.Position.X, Cursor.Position.Y - 3);
-            SendRightClickUp((UInt32)X, (UInt32)Y);
-            changeFocusMyWindow();
-        }
-
-
+       
         internal void zoom()
         {
             SendKeys.SendWait("z");
@@ -175,8 +177,23 @@ namespace Lib
             SendKeys.SendWait("p");
         }
 
+
+        internal void contrast()
+        {
+            SendKeys.SendWait("w");
+        }
+        internal void rotateRight()
+        {
+            SendKeys.SendWait("r");
+        }
+        internal void rotateLeft()
+        {
+            SendKeys.SendWait("l");
+        }
+
         internal void leftClickDown()
         {
+            leftClickDownPressed = true;
             int X = Cursor.Position.X;
             int Y = Cursor.Position.Y;
             SendLeftClickDown((UInt32)X, (UInt32)Y);
@@ -184,9 +201,19 @@ namespace Lib
 
         internal void leftClickUp()
         {
+            leftClickDownPressed = false;
             int X = Cursor.Position.X;
             int Y = Cursor.Position.Y;
             SendLeftClickUp((UInt32)X, (UInt32)Y);
         }
+        private void upAllClicks()
+        {
+            if (leftClickDownPressed)
+                leftClickUp();
+            if (rightClickDownPressed)
+                rightClickUp();
+        }
+
+
     }
 }

@@ -5,19 +5,53 @@ using System.Text;
 
 namespace Lib
 {
-    public class Options
+    public class OptionsController
     {
-        public List<string> names;
-        public Options()
-        {
-            names = new List<string>();
-            names.Add("NONE");
-            names.Add("ZOOM/PANE");
-        }
-        public int size()
-        {
-            return names.Count;
-        }
         
+        private List<Option> optionsList;
+        public bool inZoom;
+        public bool inPane;
+        public bool inExtraZoom;
+        public int optionSelected;
+        public bool inContrast;
+        public OptionsController()
+        {
+            optionsList = new List<Option>();
+            optionsList.Add(Option.NONE);
+            optionsList.Add(Option.ZOOMPAN);
+            optionsList.Add(Option.CONTRAST);
+            optionsList.Add(Option.ROTATE);
+            optionSelected = 0;
+            inContrast = false;
+            inZoom = false;
+            inPane = false;
+            inExtraZoom = false;
+        }
+        public bool inAnyOptionInProcess()
+        {
+            return inZoom || inPane || inContrast;
+        }
+        public Option nextOption()
+        {
+            if (optionSelected < optionsList.Count - 1)
+            {
+                optionSelected++;
+                return optionsList[optionSelected];
+            }
+            return optionsList[optionSelected];
+        }
+        public Option getOption()
+        {
+            return optionsList[optionSelected];
+        }
+        public Option previusOption()
+        {
+            if (optionSelected > 0)
+            {
+                optionSelected--;
+                return optionsList[optionSelected];
+            }
+            return optionsList[optionSelected];
+        }
     }
 }

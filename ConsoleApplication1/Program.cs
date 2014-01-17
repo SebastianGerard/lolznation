@@ -19,6 +19,7 @@ namespace ConsoleApplication1
             Controller controller = new Controller();
             controller.SetPolicyFlags(Controller.PolicyFlag.POLICYBACKGROUNDFRAMES);
             controller.AddListener(gestureApp);
+
             Console.WriteLine("Press Enter to quit...");
             Console.ReadLine();
         }

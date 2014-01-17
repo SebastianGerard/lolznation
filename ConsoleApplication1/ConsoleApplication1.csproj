@@ -55,10 +55,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GestureLib\GestureLib.NET4.0.csproj">
-      <Project>{41c809f9-6788-4ed4-b072-e70e971229d1}</Project>
-      <Name>GestureLib.NET4.0</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Lib\Lib.csproj">
       <Project>{7c3fc517-4537-4e77-b437-85ca5afd68d4}</Project>
       <Name>Lib</Name>
