@@ -7,15 +7,15 @@ namespace Lib
 {
     public class OptionsController
     {
-        
-        private List<Option> optionsList;
+        private static OptionsController instance;
+
+        private static List<Option> optionsList;
         public bool inZoom;
         public bool inPane;
         public bool inExtraZoom;
         public int optionSelected;
         public bool inContrast;
-        public OptionsController()
-        {
+        private OptionsController() {
             optionsList = new List<Option>();
             optionsList.Add(Option.NONE);
             optionsList.Add(Option.ZOOMPAN);
@@ -27,6 +27,20 @@ namespace Lib
             inPane = false;
             inExtraZoom = false;
         }
+         
+
+        public static OptionsController Instance
+       {
+          get 
+          {
+             if (instance == null)
+             {
+                 instance = new OptionsController();
+                 
+             }
+             return instance;
+          }
+       }
         public bool inAnyOptionInProcess()
         {
             return inZoom || inPane || inContrast;

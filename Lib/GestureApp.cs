@@ -4,48 +4,55 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Lib
 {
     public class GestureApp: Listener
     {
         Window window = new Window();
-        OptionsController optionsController = new OptionsController();
+       
         int x, y;
-
+        Form form;
+        public bool debbugMode = true;
         public override void OnInit(Controller controller)
         {
             controller.EnableGesture(Gesture.GestureType.TYPEKEYTAP);
             controller.EnableGesture(Gesture.GestureType.TYPESWIPE);
             controller.EnableGesture(Gesture.GestureType.TYPECIRCLE);
+            
         }
         public override void OnFrame (Controller controller)
 	    {
             Leap.Frame frame = controller.Frame();
             Leap.GestureList gestures = frame.Gestures();
-            
+
+            if (GestureLib.hastwofingers(frame) && GestureLib.isKeyTap(gestures))
+                window.clickRight();
+            else
             if (GestureLib.isKeyTap(gestures))
                 window.click();
+            
             if (GestureLib.isSwapLeft(gestures) && window.myWindowIsFocused())
-                Console.WriteLine(optionsController.previusOption());
+                Console.WriteLine(OptionsController.Instance.previusOption());
             if (GestureLib.isSwapRight(gestures) && window.myWindowIsFocused())
-                Console.WriteLine(optionsController.nextOption());
+                Console.WriteLine(OptionsController.Instance.nextOption());
 
-            if (optionsController.getOption() == Option.CONTRAST)
+            if (OptionsController.Instance.getOption() == Option.CONTRAST && !window.myWindowIsFocused())
             {
-                if (GestureLib.hasonefinger(frame) && GestureLib.areInTouchZone(frame) && !optionsController.inAnyOptionInProcess())
+                if (GestureLib.hasonefinger(frame) && GestureLib.areInTouchZone(frame) && !OptionsController.Instance.inAnyOptionInProcess())
                 {
-                    optionsController.inContrast = true;
+                    OptionsController.Instance.inContrast = true;
                     window.contrast();
                     window.rightClickDown();
                 }
-                else if (GestureLib.hasonefinger(frame) && GestureLib.areOutTouchZone(frame) && optionsController.inContrast)
+                else if (GestureLib.hasonefinger(frame) && GestureLib.areOutTouchZone(frame) && OptionsController.Instance.inContrast)
                 {
-                    optionsController.inContrast = false;
+                    OptionsController.Instance.inContrast = false;
                     window.rightClickUp();
                 }
             }
-            if (optionsController.getOption() == Option.ROTATE)
+            if (OptionsController.Instance.getOption() == Option.ROTATE && !window.myWindowIsFocused())
             {
                 if(GestureLib.isACircle(gestures) == DefautGestures.CircleRight)
                     window.rotateRight();
@@ -53,33 +60,33 @@ namespace Lib
                     window.rotateLeft();
                 
             }
-            if (optionsController.getOption() == Option.ZOOMPAN)
+            if (OptionsController.Instance.getOption() == Option.ZOOMPAN && !window.myWindowIsFocused())
             {
                 
-                if (GestureLib.hasonefinger(frame) && GestureLib.areInTouchZone(frame) && !optionsController.inAnyOptionInProcess())
+                if (GestureLib.hasonefinger(frame) && GestureLib.areInTouchZone(frame) && !OptionsController.Instance.inAnyOptionInProcess())
                 {
-                    optionsController.inPane = true;
+                    OptionsController.Instance.inPane = true;
                     window.pan();
                     window.leftClickDown();
                 }
-                else if (GestureLib.hasonefinger(frame) && GestureLib.areOutTouchZone(frame) && optionsController.inPane)
+                else if (GestureLib.hasonefinger(frame) && GestureLib.areOutTouchZone(frame) && OptionsController.Instance.inPane)
                 {
-                    optionsController.inPane = false;
+                    OptionsController.Instance.inPane = false;
                     window.leftClickUp();
                 }
                 if (GestureLib.hasTwoFingersEachHand(frame))
                 {
-                    if (GestureLib.areInTouchZone(frame) && !optionsController.inAnyOptionInProcess())
+                    if (GestureLib.areInTouchZone(frame) && !OptionsController.Instance.inAnyOptionInProcess())
                     {
                         x = window.cursorX();
                         y = window.cursorY();
-                        optionsController.inZoom = true;
+                        OptionsController.Instance.inZoom = true;
                         window.zoom();
                         window.rightClickDown();
                     }
-                    else if (GestureLib.areOutTouchZone(frame) && optionsController.inZoom)
+                    else if (GestureLib.areOutTouchZone(frame) && OptionsController.Instance.inZoom)
                     {
-                        optionsController.inZoom = false;
+                        OptionsController.Instance.inZoom = false;
                         window.rightClickUp();
                     }
                 }
@@ -134,7 +141,7 @@ namespace Lib
                 }
                     
             }*/
-            if (optionsController.inZoom)
+            if (OptionsController.Instance.inZoom)
                 drawCursorVert(frame);
             else
                 drawCursor(frame);

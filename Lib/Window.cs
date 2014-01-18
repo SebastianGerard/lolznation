@@ -84,7 +84,7 @@ namespace Lib
         string clearCanvasName = "PHENIX - Vafk,T,6 [ClearCanvas DICOM Viewer (Source) - Not for Diagnostic Use | Modified Installation]";
 
         string myWindowsClass = "ConsoleWindowClass";
-        string myWindowsName = "file:///C:/Users/Sebastian/Documents/Visual Studio 2012/Projects/ConsoleApplication1/ConsoleApplication1/bin/Debug/ConsoleApplication1.EXE";
+        string myWindowsName = "Form1";
         bool myWindowFocused = true;
         private static bool changeFocus(string _class, string _caption)
         {
@@ -150,6 +150,14 @@ namespace Lib
             int Y = Cursor.Position.Y;
             SendLeftClickDown((UInt32)X, (UInt32)Y);
             SendLeftClickUp((UInt32)X, (UInt32)Y);
+        }
+        public void clickRight()
+        {
+            upAllClicks();
+            int X = Cursor.Position.X;
+            int Y = Cursor.Position.Y;
+            SendRightClickDown((UInt32)X, (UInt32)Y);
+            SendRightClickUp((UInt32)X, (UInt32)Y);
         }
         public void rightClickDown()
         {
