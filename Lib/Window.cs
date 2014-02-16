@@ -13,8 +13,8 @@ namespace Lib
 
         [DllImport("user32.dll")]
         private static extern void mouse_event(UInt32 dwFlags, UInt32 dx, UInt32 dy, UInt32 dwData, IntPtr dwExtraInfo);
-        public float windowWidth = 1366;
-        public float windowHeight = 768;
+        public float windowWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
+        public float windowHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
         private const UInt32 MouseEventRightDown = 0x0008;
         private const UInt32 MouseEventRightUp = 0x0010;
         private const int MOUSEEVENTF_LEFTDOWN = 0x0002;
@@ -80,13 +80,13 @@ namespace Lib
 
         //WindowsForms10.Window.8.app.0.bf7d44_r9_ad1
         //Explorer [ClearCanvas DICOM Viewer (Source) - Not for Diagnostic Use | Modified Installation]
-        string clearCanvasClass = "WindowsForms10.Window.8.app.0.bf7d44_r9_ad1";
-        string clearCanvasName = "PHENIX - Vafk,T,6 [ClearCanvas DICOM Viewer (Source) - Not for Diagnostic Use | Modified Installation]";
+        //string clearCanvasClass = "WindowsForms10.Window.8.app.0.bf7d44_r9_ad1";
+        //string clearCanvasName = "PHENIX - Vafk,T,6 [ClearCanvas DICOM Viewer (Source) - Not for Diagnostic Use | Modified Installation]";
 
         string myWindowsClass = "ConsoleWindowClass";
         string myWindowsName = "Form1";
         bool myWindowFocused = true;
-        private static bool changeFocus(string _class, string _caption)
+        /*private static bool changeFocus(string _class, string _caption)
         {
             IntPtr calculatorHandle = FindWindow(_class, _caption);
 
@@ -102,7 +102,7 @@ namespace Lib
                 SetForegroundWindow(calculatorHandle);
             return true;
         }
-
+        */
         public Window()
         {
             rightClickDownPressed = false;
@@ -121,11 +121,11 @@ namespace Lib
             changeFocus(clearCanvasClass,clearCanvasName);
         }*/
 
-        public void changeFocusMyWindow()
+        /*public void changeFocusMyWindow()
         {
             myWindowFocused = true;
             changeFocus(myWindowsClass,myWindowsName);
-        }
+        }*/
 
         public void setCursorPositionXY(int X, int Y)
         {
@@ -198,7 +198,14 @@ namespace Lib
         {
             SendKeys.SendWait("l");
         }
-
+        internal void scroll()
+        {
+            SendKeys.SendWait("s");
+        }
+        internal void rotate3D()
+        {
+            SendKeys.SendWait("3");
+        }
         internal void leftClickDown()
         {
             leftClickDownPressed = true;
@@ -223,5 +230,9 @@ namespace Lib
         }
 
 
+
+
+
+        
     }
 }

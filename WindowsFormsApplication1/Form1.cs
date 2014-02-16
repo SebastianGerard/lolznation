@@ -31,6 +31,73 @@ namespace WindowsFormsApplication1
             listen = new Thread(listenOptions);
             listen.Start();
         }
+
+        internal WindowsFormsApplication1.Properties.Resources Resources
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+
+        internal WindowsFormsApplication1.Properties.Settings Settings
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+
+        public Lib.GestureApp GestureApp
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+
+        public Lib.OptionsController OptionsController
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+
+        public Lib.DefautGestures DefautGestures
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+
+        public Lib.Option Option
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+    
         delegate void SetTextCallback(string text);
 
         private void SetText(string text)
@@ -83,6 +150,27 @@ namespace WindowsFormsApplication1
             string last_option = Option.ZOOMPAN.ToString();
             while (comeon)
             {
+                if (OptionsController.Instance.getOption() == Option.ROTATE3D && last_option != Option.ROTATE3D.ToString())
+                {
+                    last_option = Option.ROTATE3D.ToString();
+                    SetText("ROTATE 3D");
+                    pictureBoxLogo1.Image = Properties.Resources.rotar3d_logo;
+                    pictureBoxLogo2.Image = Properties.Resources.rotar3d_logo_2;
+                    pictureBoxAnimation.Image = Properties.Resources.rotate3d;
+                    pictureBoxNext.Image = null;
+                    pictureBoxPrev.Image = Properties.Resources.scroll_logo;
+                }
+                if (OptionsController.Instance.getOption() == Option.SCROLL && last_option != Option.SCROLL.ToString())
+                {
+                    last_option = Option.SCROLL.ToString();
+                    SetText("STACK");
+                    pictureBoxLogo1.Image = Properties.Resources.scroll_logo;
+                    pictureBoxLogo2.Image = Properties.Resources.scroll_logo_2;
+                    pictureBoxAnimation.Image = Properties.Resources.scroll;
+                    pictureBoxNext.Image = Properties.Resources.rotar3d_logo;
+                    pictureBoxPrev.Image = Properties.Resources.rotar_der_logo;
+                }
+
                 if (OptionsController.Instance.getOption() == Option.ROTATE && last_option != Option.ROTATE.ToString())
                 {
                     last_option = Option.ROTATE.ToString();
@@ -90,7 +178,7 @@ namespace WindowsFormsApplication1
                     pictureBoxLogo1.Image = Properties.Resources.rotar_izq_logo;
                     pictureBoxLogo2.Image = Properties.Resources.rotar_der_logo;
                     pictureBoxAnimation.Image = Properties.Resources.rotate;
-                    pictureBoxNext.Image = null;
+                    pictureBoxNext.Image = Properties.Resources.scroll_logo;
                     pictureBoxPrev.Image = Properties.Resources.brillo_logo;
                 }
                 if (OptionsController.Instance.getOption() == Option.CONTRAST && last_option != Option.CONTRAST.ToString())
@@ -126,6 +214,7 @@ namespace WindowsFormsApplication1
                     pictureBoxPrev.Image = null;
 
                 }
+                
 
             }
         }

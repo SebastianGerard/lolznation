@@ -16,24 +16,57 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{9A2B14
 		..\..\..\..\Pictures\programa tesis\animaciones\zoom.gif = ..\..\..\..\Pictures\programa tesis\animaciones\zoom.gif
 	EndProjectSection
 EndProject
+Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "LeapComputerController", "LeapComputerController\LeapComputerController.isproj", "{C4F6D7DD-6793-4897-BABE-93FA6C7E9D72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CD_ROM|Any CPU = CD_ROM|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		DVD-5|Any CPU = DVD-5|Any CPU
 		Release|Any CPU = Release|Any CPU
+		SingleImage|Any CPU = SingleImage|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7516421-689A-43FD-B88D-D610ADB46DB6}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{F7516421-689A-43FD-B88D-D610ADB46DB6}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
 		{F7516421-689A-43FD-B88D-D610ADB46DB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F7516421-689A-43FD-B88D-D610ADB46DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7516421-689A-43FD-B88D-D610ADB46DB6}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7516421-689A-43FD-B88D-D610ADB46DB6}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
 		{F7516421-689A-43FD-B88D-D610ADB46DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7516421-689A-43FD-B88D-D610ADB46DB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7516421-689A-43FD-B88D-D610ADB46DB6}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{F7516421-689A-43FD-B88D-D610ADB46DB6}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{7C3FC517-4537-4E77-B437-85CA5AFD68D4}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{7C3FC517-4537-4E77-B437-85CA5AFD68D4}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
 		{7C3FC517-4537-4E77-B437-85CA5AFD68D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7C3FC517-4537-4E77-B437-85CA5AFD68D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C3FC517-4537-4E77-B437-85CA5AFD68D4}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C3FC517-4537-4E77-B437-85CA5AFD68D4}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
 		{7C3FC517-4537-4E77-B437-85CA5AFD68D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C3FC517-4537-4E77-B437-85CA5AFD68D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C3FC517-4537-4E77-B437-85CA5AFD68D4}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{7C3FC517-4537-4E77-B437-85CA5AFD68D4}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{66D4D8E9-F9F9-4974-ADDB-40EF7DAAF844}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{66D4D8E9-F9F9-4974-ADDB-40EF7DAAF844}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
 		{66D4D8E9-F9F9-4974-ADDB-40EF7DAAF844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{66D4D8E9-F9F9-4974-ADDB-40EF7DAAF844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66D4D8E9-F9F9-4974-ADDB-40EF7DAAF844}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{66D4D8E9-F9F9-4974-ADDB-40EF7DAAF844}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
 		{66D4D8E9-F9F9-4974-ADDB-40EF7DAAF844}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66D4D8E9-F9F9-4974-ADDB-40EF7DAAF844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66D4D8E9-F9F9-4974-ADDB-40EF7DAAF844}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{66D4D8E9-F9F9-4974-ADDB-40EF7DAAF844}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{C4F6D7DD-6793-4897-BABE-93FA6C7E9D72}.CD_ROM|Any CPU.ActiveCfg = CD_ROM
+		{C4F6D7DD-6793-4897-BABE-93FA6C7E9D72}.CD_ROM|Any CPU.Build.0 = CD_ROM
+		{C4F6D7DD-6793-4897-BABE-93FA6C7E9D72}.Debug|Any CPU.ActiveCfg = DVD-5
+		{C4F6D7DD-6793-4897-BABE-93FA6C7E9D72}.Debug|Any CPU.Build.0 = DVD-5
+		{C4F6D7DD-6793-4897-BABE-93FA6C7E9D72}.DVD-5|Any CPU.ActiveCfg = DVD-5
+		{C4F6D7DD-6793-4897-BABE-93FA6C7E9D72}.DVD-5|Any CPU.Build.0 = DVD-5
+		{C4F6D7DD-6793-4897-BABE-93FA6C7E9D72}.Release|Any CPU.ActiveCfg = SingleImage
+		{C4F6D7DD-6793-4897-BABE-93FA6C7E9D72}.Release|Any CPU.Build.0 = SingleImage
+		{C4F6D7DD-6793-4897-BABE-93FA6C7E9D72}.SingleImage|Any CPU.ActiveCfg = SingleImage
+		{C4F6D7DD-6793-4897-BABE-93FA6C7E9D72}.SingleImage|Any CPU.Build.0 = SingleImage
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -70,6 +70,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -156,6 +157,12 @@
     <Content Include="LeapCSharp.NET4.0.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\scroll_logo_2.png" />
+    <None Include="Resources\rotar3d_logo_clipped_rev_2.png" />
+    <None Include="Resources\rotate3d.gif" />
+    <None Include="Resources\rotar3d_logo_clipped_rev_1.png" />
+    <None Include="Resources\scroll_logo.png" />
+    <None Include="Resources\scroll.gif" />
     <None Include="Resources\mano.png" />
     <None Include="Resources\indice_clipped_rev_2.png" />
     <None Include="Resources\mouse.png" />

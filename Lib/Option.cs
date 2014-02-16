@@ -11,5 +11,7 @@ namespace Lib
         ZOOMPAN,
         CONTRAST,
         ROTATE,
+        SCROLL,
+        ROTATE3D,
     };
 }

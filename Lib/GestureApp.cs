@@ -15,6 +15,29 @@ namespace Lib
         int x, y;
         Form form;
         public bool debbugMode = true;
+
+        internal Window Window
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+
+        public OptionsController OptionsController
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+    
         public override void OnInit(Controller controller)
         {
             controller.EnableGesture(Gesture.GestureType.TYPEKEYTAP);
@@ -27,7 +50,7 @@ namespace Lib
             Leap.Frame frame = controller.Frame();
             Leap.GestureList gestures = frame.Gestures();
 
-            if (GestureLib.hastwofingers(frame) && GestureLib.isKeyTap(gestures))
+            if (GestureLib.hastwofingers(frame)  && GestureLib.isKeyTap(gestures))
                 window.clickRight();
             else
             if (GestureLib.isKeyTap(gestures))
@@ -51,6 +74,30 @@ namespace Lib
                     OptionsController.Instance.inContrast = false;
                     window.rightClickUp();
                 }
+                if (GestureLib.areOutTouchZone(frame) && OptionsController.Instance.inContrast)
+                {
+                    OptionsController.Instance.inContrast = false;
+                    window.rightClickUp();
+                }
+            }
+            if (OptionsController.Instance.getOption() == Option.SCROLL && !window.myWindowIsFocused())
+            {
+                if (GestureLib.hasonefinger(frame) && GestureLib.areInTouchZone(frame) && !OptionsController.Instance.inAnyOptionInProcess())
+                {
+                    OptionsController.Instance.inScroll = true;
+                    window.scroll();
+                    window.leftClickDown();
+                }
+                else if (GestureLib.hasonefinger(frame) && GestureLib.areOutTouchZone(frame) && OptionsController.Instance.inScroll)
+                {
+                    OptionsController.Instance.inScroll = false;
+                    window.leftClickUp();
+                }
+                if (GestureLib.areOutTouchZone(frame) && OptionsController.Instance.inScroll)
+                {
+                    OptionsController.Instance.inScroll = false;
+                    window.leftClickUp();
+                }
             }
             if (OptionsController.Instance.getOption() == Option.ROTATE && !window.myWindowIsFocused())
             {
@@ -59,6 +106,20 @@ namespace Lib
                 else if (GestureLib.isACircle(gestures) == DefautGestures.CircleLeft)
                     window.rotateLeft();
                 
+            }
+            if (OptionsController.Instance.getOption() == Option.ROTATE3D && !window.myWindowIsFocused())
+            {
+                if (GestureLib.hasFist(frame) && !OptionsController.Instance.inAnyOptionInProcess())
+                {
+                    OptionsController.Instance.inRotate3D = true;
+                    window.rotate3D();
+                    window.leftClickDown();
+                }
+                else if (!GestureLib.hasFist(frame) && OptionsController.Instance.inRotate3D)
+                {
+                    OptionsController.Instance.inRotate3D = false;
+                    window.leftClickUp();
+                }
             }
             if (OptionsController.Instance.getOption() == Option.ZOOMPAN && !window.myWindowIsFocused())
             {
@@ -90,6 +151,17 @@ namespace Lib
                         window.rightClickUp();
                     }
                 }
+                if (GestureLib.areOutTouchZone(frame) && OptionsController.Instance.inZoom)
+                {
+                    OptionsController.Instance.inZoom = false;
+                    window.rightClickUp();                    
+                }
+                if (GestureLib.areOutTouchZone(frame) && OptionsController.Instance.inPane)
+                {
+                    OptionsController.Instance.inPane = false;
+                    window.leftClickUp();
+                }
+               
                 
             }
             /*if (isClick(gestures) )
@@ -161,12 +233,12 @@ namespace Lib
         private void drawCursorVert(Frame frame)
         {
             Vector normalizedPosition = GestureLib.getStabilizedPalmPosition(frame);
-            float tx =normalizedPosition.x * window.windowWidth;
+            
+            float tx = normalizedPosition.x * window.windowWidth;
             int dxInt = (int)tx;
-            int dif = x-dxInt;
+            float dif = (x-dxInt);
             //float ty = window.windowHeight - normalizedPosition.y * window.windowHeight;
-            window.setCursorPositionXYDefaultX((int)y+dif);
-
+            window.setCursorPositionXYDefaultX((int)(y + dif * 0.1));//scale = 0.1
         }
     }
 }

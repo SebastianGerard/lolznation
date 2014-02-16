@@ -8,6 +8,18 @@ namespace Lib
     public static class GestureLib
     {
         static int lastId = 0;
+
+        //public static DefautGestures DefautGestures
+        //{
+        //    get
+        //    {
+        //        throw new System.NotImplementedException();
+        //    }
+        //    set
+        //    {
+        //    }
+        //}
+    
         public static  bool areOutTouchZone(Frame frame)
         {
             Hand hand = frame.Hands.Rightmost;
@@ -93,8 +105,6 @@ namespace Lib
         {
             InteractionBox interactionBox = frame.InteractionBox;
             Hand hand = frame.Hands.Rightmost;
-            
-            Pointable pointable = hand.Pointables[0];
             Vector normalizedPosition = interactionBox.NormalizePoint(hand.StabilizedPalmPosition);
             return normalizedPosition;
         }
@@ -109,13 +119,14 @@ namespace Lib
                     {
                         if (lastId != circle.Id)
                         {
+                            
                             if (circle.Pointable.Direction.AngleTo(circle.Normal) <= Math.PI / 4)
                             {
                                 return DefautGestures.CircleRight;
                             }
                             else
                                 return DefautGestures.CircleLeft;
-                            lastId = circle.Id;
+                            
                         }
                     }
                 }
